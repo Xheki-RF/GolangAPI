@@ -2,7 +2,7 @@
   "database": {
     "host": "{{ msp_pgsql_address }}",
     "port": 5432,
-    "schema": "msp_service_template",
+    "schema": "social-network",
     "database": "{{ msp_pgsql_name }}",
     "username": "{{ msp_pgsql_user }}",
     "password": "{{ msp_pgsql_password }}"
