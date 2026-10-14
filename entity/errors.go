@@ -5,6 +5,7 @@ import (
 )
 
 var (
-	ErrObjectNotFound  = errors.New("object not found")
-	ErrMessageNotFound = errors.New("message not found")
+	ErrUserEmailConflict            = errors.New("email already exists")
+	ErrUserEmailNotFound            = errors.New("email not found")
+	ErrUserEmailInternalServerError = errors.New("something went wrong")
 )

@@ -3,8 +3,9 @@ package conf_test
 import (
 	"testing"
 
+	"social-network/conf"
+
 	"github.com/txix-open/isp-kit/test/rct"
-	"isp-service-template/conf"
 )
 
 func TestDefaultRemoteConfig(t *testing.T) {

@@ -1,9 +1,9 @@
 package main
 
 import (
-	"isp-service-template/assembly"
-	"isp-service-template/conf"
-	"isp-service-template/routes"
+	"social-network/assembly"
+	"social-network/conf"
+	"social-network/routes"
 
 	"github.com/txix-open/isp-kit/bootstrap"
 	"github.com/txix-open/isp-kit/cluster"
@@ -14,18 +14,18 @@ var (
 	version = "1.0.0"
 )
 
-// @title isp-service-template
+// @title social-network
 // @version 1.0.0
 // @description Шаблон сервиса
 
 // @license.name GNU GPL v3.0
 
 // @host localhost:9000
-// @BasePath /api/isp-service-template
+// @BasePath /api/social-network
 
 //go:generate swag init -pd -ot json -eot json
 func main() {
-	boot := bootstrap.New(version, conf.Remote{}, routes.EndpointDescriptors(), cluster.GrpcTransport)
+	boot := bootstrap.New(version, conf.Remote{}, routes.EndpointDescriptors(), cluster.HttpTransport)
 	app := boot.App
 	logger := app.Logger()
 

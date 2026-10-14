@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	prefix = "isp-service-template"
+	prefix = "social-network"
 )
 
 type Locker struct {

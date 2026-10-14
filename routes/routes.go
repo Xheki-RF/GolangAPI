@@ -9,11 +9,11 @@ import (
 	httpEndpoint "github.com/txix-open/isp-kit/http/endpoint"
 	"github.com/txix-open/isp-kit/http/router"
 
-	"isp-service-template/controller"
+	"social-network/controller"
 )
 
 type Controllers struct {
-	Object controller.Object
+	User controller.User
 }
 
 func EndpointDescriptors() []cluster.EndpointDescriptor {
@@ -31,24 +31,31 @@ func Handler(wrapper endpoint.Wrapper, c Controllers) *grpc.Mux {
 func HttpHandler(wrapper httpEndpoint.Wrapper, c Controllers) *router.Router {
 	r := router.New()
 
-	r.POST("/object/all", wrapper.Endpoint(c.Object.All))
-	r.POST("/object/get_by_id", wrapper.Endpoint(c.Object.GetById))
+	r.POST("/users/register", wrapper.Endpoint(c.User.RegisterUserCtrl))
+	r.POST("/users/update", wrapper.Endpoint(c.User.UpdateUserCtrl))
+	r.POST("/users/delete", wrapper.Endpoint(c.User.DeleteUserCtrl))
 
 	return r
 }
 
 func endpointDescriptors(c Controllers) []cluster.EndpointDescriptor {
 	return []cluster.EndpointDescriptor{{
-		Path:             "isp-service-template/object/all",
+		Path:             "social-network/users/register",
 		Inner:            false,
 		UserAuthRequired: false,
-		Handler:          c.Object.All,
+		Handler:          c.User.RegisterUserCtrl,
 		HttpMethod:       http.MethodPost,
 	}, {
-		Path:             "isp-service-template/object/get_by_id",
+		Path:             "social-network/users/update",
 		Inner:            false,
 		UserAuthRequired: false,
-		Handler:          c.Object.GetById,
+		Handler:          c.User.UpdateUserCtrl,
+		HttpMethod:       http.MethodPost,
+	}, {
+		Path:             "social-network/users/delete",
+		Inner:            false,
+		UserAuthRequired: false,
+		Handler:          c.User.DeleteUserCtrl,
 		HttpMethod:       http.MethodPost,
 	}}
 }

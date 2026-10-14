@@ -1,13 +1,12 @@
 package assembly
 
 import (
-	"isp-service-template/conf"
-	"isp-service-template/controller"
-	"isp-service-template/repository"
-	"isp-service-template/routes"
-	"isp-service-template/service"
-	"isp-service-template/transaction"
 	"net/http"
+	"social-network/conf"
+	"social-network/controller"
+	"social-network/repository"
+	"social-network/routes"
+	"social-network/service"
 
 	"github.com/txix-open/grmq/consumer"
 	"github.com/txix-open/isp-kit/db"
@@ -44,23 +43,21 @@ func NewLocator(db DB, logger log.Logger) Locator {
 }
 
 func (l Locator) Config(conf conf.Remote) LocatorConfig {
-	objectRepo := repository.NewObject(l.db)
-	objectService := service.NewObject(objectRepo)
-	objectController := controller.NewObject(objectService)
+	userRepo := repository.NewUser(l.logger, l.db, l.db)
+	userService := service.NewUser(userRepo)
+	userController := controller.NewUser(userService)
+
 	c := routes.Controllers{
-		Object: objectController,
+		User: *userController,
 	}
+	
 	mapper := endpoint.DefaultWrapper(l.logger, grpclog.Log(l.logger, true))
 	grpcHandler := routes.Handler(mapper, c)
 
 	wrapper := httpEndpoint.DefaultWrapper(l.logger, httplog.Log(l.logger, true))
 	httpHandler := routes.HttpHandler(wrapper, c)
 
-	txManager := transaction.NewManager(l.db)
-	msgService := service.NewMessage(l.logger, txManager)
-	msgController := controller.NewMessage(msgService)
-
-	handler := grmqx.NewResultHandler(l.logger, msgController)
+	handler := grmqx.NewResultHandler(l.logger, nil)
 	rmqHandler := conf.Consumer.Config.DefaultConsumer(handler, grmqx.ConsumerLog(l.logger, true))
 
 	return LocatorConfig{

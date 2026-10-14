@@ -8,12 +8,12 @@ grpcOuterAddress:
 grpcInnerAddress:
   ip: 0.0.0.0
   port: 9999
-moduleName: isp-service-template
+moduleName: social-network
 
 remoteConfigReceiverTimeout: 5s
 
 logfile:
-  path: /var/log/isp-service-template/runtime.log
+  path: /var/log/social-network/runtime.log
   maxSizeMb: 512
   maxBackups: 4
   compress: true

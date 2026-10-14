@@ -3,8 +3,9 @@ package routes_test
 import (
 	"testing"
 
+	"social-network/routes"
+
 	"github.com/txix-open/isp-kit/test"
-	"isp-service-template/routes"
 )
 
 func TestRoutesHaveHttpMethod(t *testing.T) {

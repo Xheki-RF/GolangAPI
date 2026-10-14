@@ -3,7 +3,7 @@ package assembly
 import (
 	"context"
 
-	"isp-service-template/conf"
+	"social-network/conf"
 
 	"github.com/txix-open/isp-kit/http"
 	"github.com/txix-open/isp-kit/observability/sentry"
@@ -93,20 +93,20 @@ func (a *Assembly) Runners() []app.Runner {
 		RequireModule("mdm", a.mdmCli).
 		RemoteConfigReceiver(a)
 	return []app.Runner{
-		app.RunnerFunc(func(ctx context.Context) error {
-			err := a.grpcServer.ListenAndServe(a.boot.BindingAddress)
-			if err != nil {
-				return errors.WithMessage(err, "listen ans serve grpc grpcServer")
-			}
-			return nil
-		}),
 		// app.RunnerFunc(func(ctx context.Context) error {
-		// 	err := a.httpServer.ListenAndServe(a.boot.BindingAddress)
+		// 	err := a.grpcServer.ListenAndServe(a.boot.BindingAddress)
 		// 	if err != nil {
-		// 		return errors.WithMessage(err, "listen ans serve http httpServer")
+		// 		return errors.WithMessage(err, "listen ans serve grpc grpcServer")
 		// 	}
 		// 	return nil
 		// }),
+		app.RunnerFunc(func(ctx context.Context) error {
+			err := a.httpServer.ListenAndServe(a.boot.BindingAddress)
+			if err != nil {
+				return errors.WithMessage(err, "listen ans serve http httpServer")
+			}
+			return nil
+		}),
 		app.RunnerFunc(func(ctx context.Context) error {
 			err := a.boot.ClusterCli.Run(ctx, eventHandler)
 			if err != nil {

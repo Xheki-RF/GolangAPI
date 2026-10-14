@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "Шаблон сервиса",
-        "title": "isp-service-template",
+        "title": "social-network",
         "contact": {},
         "license": {
             "name": "GNU GPL v3.0"
@@ -10,7 +10,7 @@
         "version": "1.0.0"
     },
     "host": "localhost:9000",
-    "basePath": "/api/isp-service-template",
+    "basePath": "/api/social-network",
     "paths": {
         "/object/all": {
             "post": {

@@ -1,0 +1,11 @@
+-- +goose Up
+CREATE TABLE posts (
+    id BIGSERIAL PRIMARY KEY,
+    subject TEXT,
+    body TEXT,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    user_id UUID DEFAULT '00000000-0000-0000-0000-000000000001' REFERENCES users (id) ON DELETE SET DEFAULT
+);
+
+-- +goose Down
+DROP TABLE posts;
