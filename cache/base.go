@@ -19,7 +19,7 @@ type Cache[T any] struct {
 func NewCache[T any]() *Cache[T] {
 	return &Cache[T]{
 		cache: make(map[string]T),
-		mu: &sync.RWMutex{},
+		mu:    &sync.RWMutex{},
 	}
 }
 
@@ -33,6 +33,6 @@ func (c *Cache[T]) GetData() map[string]T {
 
 	data := make(map[string]T, len(c.cache))
 	maps.Copy(data, c.cache)
-	
+
 	return data
 }

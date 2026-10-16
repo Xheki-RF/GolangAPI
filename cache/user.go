@@ -21,7 +21,7 @@ func (c *Cache[T]) Add(key string, object T) {
 func (c *Cache[T]) Get(key string) (T, bool) {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
-	
+
 	value, exists := c.cache[key]
 
 	return value, exists

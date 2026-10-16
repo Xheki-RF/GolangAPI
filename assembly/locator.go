@@ -50,7 +50,7 @@ func (l Locator) Config(conf conf.Remote) LocatorConfig {
 	c := routes.Controllers{
 		User: *userController,
 	}
-	
+
 	mapper := endpoint.DefaultWrapper(l.logger, grpclog.Log(l.logger, true))
 	grpcHandler := routes.Handler(mapper, c)
 

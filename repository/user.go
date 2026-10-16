@@ -141,7 +141,7 @@ func (repo User) selectEmailQuery(ctx context.Context, tx *db.Tx, email string, 
 			email = $1`
 
 	err := tx.QueryRowContext(ctx, query, email).Scan(&newUser.Email)
-	switch returnNotFound{
+	switch returnNotFound {
 	case true:
 		if errors.Is(err, sql.ErrNoRows) {
 			return entity.ErrUserEmailNotFound

@@ -22,6 +22,7 @@ linters:
     - prealloc # слишком аггресивный, в большинстве случаев не требуется
     - gomodguard # deprecated
     - goconst # слишком агрессивный
+    - ireturn # не роляет
   settings:
     exhaustruct_v5:
       allow-empty: true
